@@ -8,7 +8,7 @@ export default function Navbar() {
         <p className='text-4xl font-bold px-1 flex flex-wrap md:flex-nowrap max-w-[30vw] text-blue-400'>Secure seats</p>
       </div>
       <div className='flex items-center md:px-8'>
-        <button className='border px-8 p-2 rounded-full'>Wallet</button>
+        <button className='border px-10 py-2 rounded-full hover:bg-blue-500 font-semibold'>Wallet</button>
       </div>
     </div>
   )
