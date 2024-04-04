@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.0.4",
+    "@rainbow-me/rainbowkit": "^2.0.5",
+    "@tanstack/react-query": "^5.28.14",
+    "next": "^14.1.4",
     "react": "^18",
     "react-dom": "^18",
-    "react-slick": "^0.30.2",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "viem": "^2.9.9",
+    "wagmi": "^2.5.18"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

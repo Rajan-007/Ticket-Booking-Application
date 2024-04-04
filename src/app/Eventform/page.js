@@ -48,11 +48,11 @@ const AddEventForm = () => {
 
   return (
     <form className="space-y-4  flex flex-col items-center justify-center " onSubmit={handleSubmit}>
-      <h2 className="text-2xl text-blue-500 font-bold m-5">Add New Event</h2>
+      <h2 className="text-3xl text-blue-400 font-bold mt-10">Add New Event</h2>
 
       {/* Basic Information */}
-      <div className='w-[90vw] md:w-[50vw] p-6 py-8 md:p-10 border rounded-2xl'>
-        <div className="mb-4 flex flex-col">
+      <div className='w-[90vw] md:w-[50vw] p-6 py-40 md:p-10 border rounded-2xl'>
+        <div className="mb-4 flex flex-col mt-5">
                 <label htmlFor="title" className="block text-sm font-medium mb-2">
                 Event Title*
                 </label>
@@ -60,7 +60,7 @@ const AddEventForm = () => {
                 type="text"
                 name="title"
                 id="title"
-                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 rounded-md w-full py-2 px-3 text-lg text-black font-semibold"
+                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 rounded-md w-full py-2 px-3 text-lg text-black "
                 value={formData.title}
                 onChange={handleChange}
                 required
@@ -164,7 +164,7 @@ const AddEventForm = () => {
             type="file"
             name="eventImage"
             id="eventImage"
-            className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 rounded-xl w-full py-2 px-3 text-lg text-black"
+            className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white rounded-md w-full py-2 px-3 text-lg text-black"
             onChange={handleChange}
             />
         </div>

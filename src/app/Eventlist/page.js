@@ -2,6 +2,8 @@
 // pages/index.js
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
+
 
 // Sample event data (replace with your actual data)
 const events = [
@@ -31,7 +33,7 @@ const EventBanner = ({ event }) => (
     <h2 className="text-2xl font-bold mb-2">{event.title}</h2>
     <p className="mb-4 font-semibold">Now dates: {event.date} | {event.time}</p>
     <p className="mb-4 font-semibold">{event.location}</p>
-    <a href={event.buttonLink} className="bg-blue-600 text-white font-semibold px-4 py-2 rounded hover:bg-blue-500">
+    <a href={event.buttonLink} className="bg-blue-500 text-white font-semibold px-4 py-3 rounded hover:bg-blue-600">
       {event.buttonText}
     </a>
   </div>
@@ -49,7 +51,7 @@ export default function Eventlist() {
         <div className="text-2xl px-2 font-bold">Ongoing Events</div>
         <nav>
           <ul className="flex space-x-4">
-            <li><a href="#" className="hover:underline">List your event</a></li>
+            <li><Link href='/Eventform' className="hover:underline">List your event</Link></li>
             <li><a href="#" className="hover:underline">Chennai</a></li>
           </ul>
         </nav>
