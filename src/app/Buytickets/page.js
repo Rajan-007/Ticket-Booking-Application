@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import React from 'react';
+
 
 function CheckoutModal({ event, onClose }) {
   // Implement ticket selection form, user information form, and payment processing integration here
@@ -43,9 +45,9 @@ function CheckoutModal({ event, onClose }) {
           </div>
           <div className='flex justify-around'>
             
-            <button onClick={onClose} className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            <Link href='/Eventlist'className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
               Cancel Checkout
-            </button>
+            </Link>
             <button onClick={onClose} className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
               Complete Purchase
             </button>

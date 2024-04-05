@@ -38,6 +38,13 @@ export default function Navbar() {
               <Link href='/' className='text-4xl font-bold px-1 flex flex-wrap md:flex-nowrap max-w-[30vw] text-blue-400'>Secure seats</Link>
             </div>
             <div className='flex items-center md:px-8'>
+            <nav>
+              <ul className="flex space-x-4 mx-2">
+                <li><Link href='/Eventform' className="hover:underline">List your event</Link></li>
+                <li><Link href='/Eventlist' className="hover:underline">Book Ticket</Link></li>
+              </ul>
+            </nav>
+            <button className='p-3 px-10 mx-2 bg-blue-500 rounded-full'>wallet</button>
               {/* <ConnectButton /> */}
             </div>
           </div>

@@ -1,72 +1,84 @@
 'use client'
 // pages/index.js
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Image from 'next/image';
 import Link from 'next/link';
+import Carousel from '../components/Carousel';
+import Events from '../components/Events';
 
+const App = () => {
+  const [items, setItems] = useState([
+    {
+      title: 'Predefault Item',
+      image: '/path/to/image.jpg',
+      description: 'This is a predefault item.',
+      date: '2024-03-22',
+      price: '$99.99',
+    },
+  ]);
 
-// Sample event data (replace with your actual data)
-const events = [
-  {
-    title: "The Real Van Gogh Immersive Experience",
-    date: "2 February - 7 March",
-    time: "10AM - 9PM",
-    location: "Express Avenue Mall, Gate no. 2, Chennai",
-    buttonText: "Buy Tickets",
-    buttonLink: "#", // Replace with actual link
-    backgroundImage: "url('https://th.bing.com/th/id/OIG4.UAykKjjTx3HEjg5xdA3q?pid=ImgGn')", // Replace with actual image URL
-  },  
-  {
-    title: "The Real Van Gogh Immersive Experience",
-    date: "2 February - 7 March",
-    time: "10AM - 9PM",
-    location: "Express Avenue Mall, Gate no. 2, Chennai",
-    buttonText: "Buy Tickets",
-    buttonLink: "#", // Replace with actual link
-    backgroundImage: "url('/bg.jpeg')", // Replace with actual image URL
-  },
-  // Add more events here
-];
+  useEffect(() => {
+    if (items.length === 4) {
+      setItems(items.slice(1));
+    }
+  }, [items]);
 
-const EventBanner = ({ event }) => (
-  <div className="bg-transparent p-4 md:p-10 md:m-5 rounded-lg  shadow-md border border-white bg-[url('/bg.jpeg')] bg-no-repeat bg-cover " Style={{backgroundImage: event.backgroundImage}}>
-    <h2 className="text-2xl font-bold mb-2">{event.title}</h2>
-    <p className="mb-4 font-semibold">Now dates: {event.date} | {event.time}</p>
-    <p className="mb-4 font-semibold">{event.location}</p>
-    <a href={event.buttonLink} className="bg-blue-500 text-white font-semibold px-4 py-3 rounded hover:bg-blue-600">
-      {event.buttonText}
-    </a>
-  </div>
-);
+  const addItem = (item) => {
+    setItems([...items, item]);
+  };
 
-export default function Eventlist() {
+  // Define the events array
+  const events = [
+    {
+      title: "The Real Van Gogh Immersive Experience",
+      date: "2 February - 7 March",
+      time: "10AM - 9PM",
+      location: "Express Avenue Mall, Gate no. 2, Chennai",
+      buttonText: "Buy Tickets",
+      prize: "$90",
+      buttonLink: "#", // Replace with actual link
+      imageUrl: "https://th.bing.com/th/id/OIG4.UAykKjjTx3HEjg5xdA3q?pid=ImgGn", // Replace with the actual image URL
+    },  
+    {
+      title: "The Real Van Gogh Immersive Experience",
+      date: "2 February - 7 March",
+      time: "10AM - 9PM",
+      location: "Express Avenue Mall, Gate no. 2, Chennai",
+      buttonText: "Buy Tickets",
+      prize: "$90",
+      buttonLink: "#", // Replace with actual link
+      imageUrl: "https://th.bing.com/th/id/OIG4.UAykKjjTx3HEjg5xdA3q?pid=ImgGn", // Replace with the actual image URL
+    },  
+    {
+      title: "The Real Van Gogh Immersive Experience",
+      date: "2 February - 7 March",
+      time: "10AM - 9PM",
+      location: "Express Avenue Mall, Gate no. 2, Chennai",
+      buttonText: "Buy Tickets",      
+      prize: "$90",
+      buttonLink: "#", // Replace with actual link
+      imageUrl: "/bg.jpeg", // Replace with the actual image URL
+    },  
+    
+    // Add more events here
+  ];
+
   return (
-    <div className="container mx-auto px-4 min-h-[80vh] ">
+    <div className='min-h-[70vh] my-10'>
+      <Carousel className='w-[50%] border ' items={items} addItem={addItem} />
       <Head>
         <title >Events</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <header className="flex justify-between items-center py-4">
-        <div className="text-2xl px-2 font-bold">Ongoing Events</div>
-        <nav>
-          <ul className="flex space-x-4">
-            <li><Link href='/Eventform' className="hover:underline">List your event</Link></li>
-            <li><a href="#" className="hover:underline">Chennai</a></li>
-          </ul>
-        </nav>
+        <div className="text-3xl px-2 font-bold m-5 "> 🔥<span className='underline text-blue-400'> Ongoing Events</span> </div>
       </header>
-
-      <main>
-        {/* Event banners */}
-        <section className="space-y-4 ">
-          {events.map((event, index) => (
-            <EventBanner key={index} event={event} className="bg-[url('')]" />
-          ))}
-        </section>
+      <main className='w-[98vw] overflow-x-hidden flex flex-row justify-evenly px-4' >
+        <Events events={events} />
       </main>
-
-      
     </div>
   );
-}
+};
+
+export default App;
