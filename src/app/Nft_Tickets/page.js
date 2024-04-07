@@ -8,12 +8,10 @@ import Link from 'next/link';
 // Sample event data (replace with your actual data)
 const events = [
   {
-    title: "The Real Van Gogh Immersive Experience",
-    date: "2 February - 7 March",
-    time: "10AM - 9PM",
-    location: "Express Avenue Mall, Gate no. 2, Chennai",
-    buttonText: "Buy Tickets",
-    buttonLink: "#", // Replace with actual link
+    title: "The Hackverse hackathon",
+    date: " 6 APRIL - 7 March",
+    time: " 12AM - 12PM",
+    location: "Express Avenue Mall, Gate no. 2, Chennaii",
     backgroundImage: "url('https://th.bing.com/th/id/OIG4.UAykKjjTx3HEjg5xdA3q?pid=ImgGn')", // Replace with actual image URL
   },  
  

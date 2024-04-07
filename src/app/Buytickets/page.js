@@ -48,9 +48,9 @@ function CheckoutModal({ event, onClose }) {
             <Link href='/Eventlist'className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
               Cancel Checkout
             </Link>
-            <button onClick={onClose} className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            <Link href='/Nft_Tickets' onClick={onClose} className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
               Complete Purchase
-            </button>
+            </Link>
           </div>
          
         </form>

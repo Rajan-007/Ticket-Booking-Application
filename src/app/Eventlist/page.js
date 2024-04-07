@@ -5,8 +5,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Carousel from '../components/Carousel';
 import Events from '../components/Events';
+import { Gethash } from '@/config/Services';
 
 const App = () => {
+  const [ipfs, setIpfs] = useState([]);
   const [items, setItems] = useState([
     {
       title: 'Predefault Item',
@@ -27,40 +29,57 @@ const App = () => {
     setItems([...items, item]);
   };
 
+  
+  useEffect(() => {
+    const getAllHash = async () => {
+      const result = await Gethash();
+      setIpfs(result);
+    }
+    
+    getAllHash();
+  }, []); // Empty dependency array to run only once when component mounts
+
+  useEffect(() => {
+    const fetchDataFromIPFS = async () => {
+      // Check if ipfs array is empty
+      if (ipfs.length === 0) {
+        return; // Exit function if ipfs is empty
+      }
+  
+      for (const hash of ipfs) {
+        const response = await fetch(`https://ipfs.io/ipfs/${hash}`);
+        const data = await response.json(); // or response.text(), depending on the response type
+        console.log(data); // Do something with the fetched data
+      }
+    };
+  
+    fetchDataFromIPFS();
+  }, [ipfs]);
+  
+  
   // Define the events array
   const events = [
     {
-      title: "The Real Van Gogh Immersive Experience",
-      date: "2 February - 7 March",
-      time: "10AM - 9PM",
+      title: "The Hackverse hackathon",
+      date: "6 APRIL - 7 March",
+      time: "12AM - 12PM",
       location: "Express Avenue Mall, Gate no. 2, Chennai",
       buttonText: "Buy Tickets",
-      prize: "$90",
-      buttonLink: "#", // Replace with actual link
-      imageUrl: "https://th.bing.com/th/id/OIG4.UAykKjjTx3HEjg5xdA3q?pid=ImgGn", // Replace with the actual image URL
-    },  
-    {
-      title: "The Real Van Gogh Immersive Experience",
-      date: "2 February - 7 March",
-      time: "10AM - 9PM",
-      location: "Express Avenue Mall, Gate no. 2, Chennai",
-      buttonText: "Buy Tickets",
-      prize: "$90",
-      buttonLink: "#", // Replace with actual link
-      imageUrl: "https://th.bing.com/th/id/OIG4.UAykKjjTx3HEjg5xdA3q?pid=ImgGn", // Replace with the actual image URL
-    },  
-    {
-      title: "The Real Van Gogh Immersive Experience",
-      date: "2 February - 7 March",
-      time: "10AM - 9PM",
-      location: "Express Avenue Mall, Gate no. 2, Chennai",
-      buttonText: "Buy Tickets",      
-      prize: "$90",
+      prize: "$10",
       buttonLink: "#", // Replace with actual link
       imageUrl: "/bg.jpeg", // Replace with the actual image URL
     },  
+    {
+      title: " Immersive Experience",
+      date: " 7 april",
+      time: "11AM - 9PM",
+      location: "marina Mall, Chennai",
+      buttonText: "Buy Tickets",
+      prize: "$90",
+      buttonLink: "#", // Replace with actual link
+      imageUrl: "https://th.bing.com/th/id/OIG4.UAykKjjTx3HEjg5xdA3q?pid=ImgGn", // Replace with the actual image URL
+    },  
     
-    // Add more events here
   ];
 
   return (

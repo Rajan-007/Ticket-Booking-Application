@@ -6,11 +6,8 @@ import { RainbowKitProvider
 } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
 import {
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-  base,
+  polygonMumbai,
+  xdcTestnet,
 } from 'wagmi/chains';
 import {
   QueryClientProvider,
@@ -21,7 +18,7 @@ import { getDefaultConfig } from '@rainbow-me/rainbowkit';
 const config = getDefaultConfig({
   appName: 'My RainbowKit App',
   projectId: 'YOUR_PROJECT_ID',
-  chains: [ polygon],
+  chains: [ polygonMumbai,xdcTestnet],
   ssr: true, // If your dApp uses server side rendering (SSR)
 });
 
