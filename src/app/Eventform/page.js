@@ -53,7 +53,7 @@ const AddEventForm = () => {
             const responseData = await response.json();
             console.log("response",responseData.IpfsHash)
             setIpfsHash(responseData.IpfsHash)
-            console.log("ticket price", ticketprice);
+            console.log("ticket price", ticketprice , totalTickets);
             const create = await CreateEvent({IpfsHash,totalTickets,ticketprice});
             console.log("created",create)
           } catch (error) {
@@ -61,8 +61,6 @@ const AddEventForm = () => {
             alert('Error creating event. Please try again.');
           }
   };
-
-
   return (
     <div className="space-y-4 flex flex-col items-center justify-center">
       <h2 className="text-3xl text-blue-400 font-bold mt-10">Add New Event</h2>

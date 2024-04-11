@@ -79,7 +79,18 @@ const App = () => {
       buttonLink: "#", // Replace with actual link
       imageUrl: "https://th.bing.com/th/id/OIG4.UAykKjjTx3HEjg5xdA3q?pid=ImgGn", // Replace with the actual image URL
     },  
+    {
+      title: "The Real Van Gogh Immersive Experience",
+      date: "2 February - 7 March",
+      time: "10AM - 9PM",
+      location: "Express Avenue Mall, Gate no. 2, Chennai",
+      buttonText: "Buy Tickets",      
+      prize: "$100",
+      buttonLink: "#", // Replace with actual link
+      imageUrl: "https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm0zMDktYWV3LTAxM18xXzEuanBn.jpg", // Replace with the actual image URL
+    },  
     
+    // Add more events here
   ];
 
   return (

@@ -5,7 +5,7 @@ import React from 'react';
 function CheckoutModal({ event, onClose }) {
   // Implement ticket selection form, user information form, and payment processing integration here
   // This example uses placeholder content
-
+  
   return (
     <div className="fixed inset-0  bg-gray-500 bg-opacity-75 overflow-y-auto h-screen flex justify-center items-center">
       <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-md mx-2">

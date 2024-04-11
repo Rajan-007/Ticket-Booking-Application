@@ -8,13 +8,16 @@ if (ethereum) {
   isBrowser().web3 = new Web3(ethereum);
   isBrowser().web3 = new Web3(isBrowser().web3.currentProvider);
 }
-const contractadd = "0x8df7b216410EFA92812d49A10e517bE15f475F33";
+const contractadd = "0xCb56D102F186900CBeFe6e03F3BAD423A460daed";
 
 export const CreateEvent = async ({IpfsHash,totalTickets,ticketprice}) => {
   if (!window.ethereum) {
     throw new Error("Ethereum object not found, install MetaMask.");
   }
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider =
+  window.ethereum != null
+    ? new ethers.providers.Web3Provider(window.ethereum)
+    : ethers.providers.getDefaultProvider();
   const signer = provider.getSigner();
   const contract = new ethers.Contract(contractadd, Token, signer);
   try {
