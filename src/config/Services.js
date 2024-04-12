@@ -1,46 +1,35 @@
-import Web3 from "web3";
 import { ethers } from "ethers";
 import Token from "./abi.json";
 
-const isBrowser = () => typeof window !== "undefined";
-const { ethereum } = isBrowser();
-if (ethereum) {
-  isBrowser().web3 = new Web3(ethereum);
-  isBrowser().web3 = new Web3(isBrowser().web3.currentProvider);
-}
-const contractadd = "0xCb56D102F186900CBeFe6e03F3BAD423A460daed";
+const contractAddress = "0x4Dc23310ab30851048e97bdbf2042b513B096B6B"; // Update with your contract address
 
-export const CreateEvent = async ({IpfsHash,totalTickets,ticketprice}) => {
-  if (!window.ethereum) {
-    throw new Error("Ethereum object not found, install MetaMask.");
-  }
-  const provider =
-  window.ethereum != null
-    ? new ethers.providers.Web3Provider(window.ethereum)
-    : ethers.providers.getDefaultProvider();
-  const signer = provider.getSigner();
-  const contract = new ethers.Contract(contractadd, Token, signer);
-  try {
-    const didInfo = await contract.createEvent(IpfsHash,totalTickets,ticketprice);
-    return didInfo;
-  } catch (error) {
-    console.error("Error fetching DID info:", error);
-    throw error;
-  }
-};
-
-export const Gethash = async () => {
+export const CreateEvent = async (ipfsHash, totalTickets, ticketPrice) => {
   if (!window.ethereum) {
     throw new Error("Ethereum object not found, install MetaMask.");
   }
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
-  const contract = new ethers.Contract(contractadd, Token, signer);
+  const contract = new ethers.Contract(contractAddress, Token, signer);
   try {
-    const didInfo = await contract.getAllIpfsHashes();
-    return didInfo;
+    const eventData = await contract.createEvent(ipfsHash, totalTickets, ethers.utils.parseEther(ticketPrice));
+    return eventData;
   } catch (error) {
-    console.error("Error fetching DID info:", error);
+    console.error("Error creating event:", error);
+    throw error;
+  }
+};
+
+export const GetAllIpfsHashes = async () => {
+  if (!window.ethereum) {
+    throw new Error("Ethereum object not found, install MetaMask.");
+  }
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const contract = new ethers.Contract(contractAddress, Token, provider);
+  try {
+    const ipfsHashes = await contract.getAllIpfsHashes();
+    return ipfsHashes;
+  } catch (error) {
+    console.error("Error fetching IPFS hashes:", error);
     throw error;
   }
 };
