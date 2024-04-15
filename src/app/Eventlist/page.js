@@ -1,9 +1,11 @@
-// pages/index.js
+// In App.js
 'use client'
+
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Carousel from '../components/Carousel';
 import Events from '../components/Events';
+import CheckoutModal from '../components/CheckoutModal'; // Import CheckoutModal component
 import { getAllEvents, CreateEvent } from '../../config/Services'; // Import CreateEvent function
 
 const App = () => {
@@ -18,6 +20,7 @@ const App = () => {
     },
   ]);
   const [events, setEvents] = useState([]);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false); // State for modal visibility
 
   useEffect(() => {
     if (items.length === 4) {
@@ -40,7 +43,6 @@ const App = () => {
       for (let i = 0; i < ipfs.length; i++) {
         const response = await fetch(`https://ipfs.io/ipfs/${ipfs[i].ipfsHash}`);
         const eventData = await response.json();
-        console.log("ve",eventData)
 
         const event = {
           title: eventData.title,
@@ -54,11 +56,7 @@ const App = () => {
           buttonText:" Buy Tickets"
         };
 
-        console.log("events",event);
-
         fetchedEvents.push(event);
-
-        console.log("fetched events",fetchedEvents);
       }
 
       setEvents(fetchedEvents);
@@ -81,13 +79,17 @@ const App = () => {
     try {
       // Call CreateEvent function to create a new event
       const eventData = await CreateEvent("your-ipfs-hash", 100, "10"); // Update with your IPFS hash, total tickets, and ticket price
-      console.log("New event created:", eventData);
       // Fetch all events after creating the new one
       const res = await getAllEvents();
       setIpfs(res);
     } catch (error) {
       console.error("Error creating event:", error);
     }
+  };
+
+  // Handler function to toggle checkout modal visibility
+  const handleToggleCheckoutModal = () => {
+    setShowCheckoutModal(!showCheckoutModal);
   };
 
   return (
@@ -103,8 +105,9 @@ const App = () => {
           🔥<span className='underline text-blue-400'> Ongoing Events</span>{' '}
         </div>
       </header>
-      <main className='w-[98vw] overflow-x-hidden flex flex-row justify-evenly px-4'>
-        <Events events={events} />
+      <main className='w-[98vw] overflow-x-hidden flex flex-row justify-evenly items-center p-4 gap-10'>
+        <Events events={events} handleToggleCheckoutModal={handleToggleCheckoutModal} />
+        {showCheckoutModal && <CheckoutModal onClose={handleToggleCheckoutModal} />}
       </main>
     </div>
   );
