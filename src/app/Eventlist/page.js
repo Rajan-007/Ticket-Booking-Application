@@ -1,11 +1,10 @@
-'use client'
 // pages/index.js
+'use client'
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import Carousel from '../components/Carousel';
 import Events from '../components/Events';
-import { Gethash } from '@/config/Services';
+import { getAllEvents, CreateEvent } from '../../config/Services'; // Import CreateEvent function
 
 const App = () => {
   const [ipfs, setIpfs] = useState([]);
@@ -18,6 +17,7 @@ const App = () => {
       price: '$99.99',
     },
   ]);
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
     if (items.length === 4) {
@@ -29,82 +29,81 @@ const App = () => {
     setItems([...items, item]);
   };
 
-  
-  useEffect(() => {
-    const getAllHash = async () => {
-      const result = await Gethash();
-      setIpfs(result);
-    }
-    
-    getAllHash();
-  }, []); // Empty dependency array to run only once when component mounts
-
   useEffect(() => {
     const fetchDataFromIPFS = async () => {
-      // Check if ipfs array is empty
       if (ipfs.length === 0) {
-        return; // Exit function if ipfs is empty
+        return;
       }
-  
-      for (const hash of ipfs) {
-        const response = await fetch(`https://ipfs.io/ipfs/${hash}`);
-        const data = await response.json(); // or response.text(), depending on the response type
-        console.log(data); // Do something with the fetched data
+
+      const fetchedEvents = [];
+
+      for (let i = 0; i < ipfs.length; i++) {
+        const response = await fetch(`https://ipfs.io/ipfs/${ipfs[i].ipfsHash}`);
+        const eventData = await response.json();
+        console.log("ve",eventData)
+
+        const event = {
+          title: eventData.title,
+          date: eventData.Date,
+          time: eventData.time,
+          location: eventData.location,
+          description: eventData.description,
+          prize: eventData.ticketPrice,
+          totalTickets : eventData.totalTickets,
+          imageUrl: eventData.eventImage,
+          buttonText:" Buy Tickets"
+        };
+
+        console.log("events",event);
+
+        fetchedEvents.push(event);
+
+        console.log("fetched events",fetchedEvents);
       }
+
+      setEvents(fetchedEvents);
     };
-  
+
     fetchDataFromIPFS();
   }, [ipfs]);
-  
-  
-  // Define the events array
-  const events = [
-    {
-      title: "The Hackverse hackathon",
-      date: "6 APRIL - 7 March",
-      time: "12AM - 12PM",
-      location: "Express Avenue Mall, Gate no. 2, Chennai",
-      buttonText: "Buy Tickets",
-      prize: "$10",
-      buttonLink: "#", // Replace with actual link
-      imageUrl: "/bg.jpeg", // Replace with the actual image URL
-    },  
-    {
-      title: " Immersive Experience",
-      date: " 7 april",
-      time: "11AM - 9PM",
-      location: "marina Mall, Chennai",
-      buttonText: "Buy Tickets",
-      prize: "$90",
-      buttonLink: "#", // Replace with actual link
-      imageUrl: "https://th.bing.com/th/id/OIG4.UAykKjjTx3HEjg5xdA3q?pid=ImgGn", // Replace with the actual image URL
-    },  
-    {
-      title: "The Real Van Gogh Immersive Experience",
-      date: "2 February - 7 March",
-      time: "10AM - 9PM",
-      location: "Express Avenue Mall, Gate no. 2, Chennai",
-      buttonText: "Buy Tickets",      
-      prize: "$100",
-      buttonLink: "#", // Replace with actual link
-      imageUrl: "https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm0zMDktYWV3LTAxM18xXzEuanBn.jpg", // Replace with the actual image URL
-    },  
-    
-    // Add more events here
-  ];
+
+  useEffect(() => {
+    const getEvent = async () => {
+      const res = await getAllEvents();
+      setIpfs(res);
+    };
+
+    getEvent();
+  }, []);
+
+  // Create a new event and fetch IPFS hashes
+  const createNewEvent = async () => {
+    try {
+      // Call CreateEvent function to create a new event
+      const eventData = await CreateEvent("your-ipfs-hash", 100, "10"); // Update with your IPFS hash, total tickets, and ticket price
+      console.log("New event created:", eventData);
+      // Fetch all events after creating the new one
+      const res = await getAllEvents();
+      setIpfs(res);
+    } catch (error) {
+      console.error("Error creating event:", error);
+    }
+  };
 
   return (
     <div className='min-h-[70vh] my-10'>
       <Carousel className='w-[50%] border ' items={items} addItem={addItem} />
       <Head>
-        <title >Events</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Events</title>
+        <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <header className="flex justify-between items-center py-4">
-        <div className="text-3xl px-2 font-bold m-5 "> 🔥<span className='underline text-blue-400'> Ongoing Events</span> </div>
+      <header className='flex justify-between items-center py-4'>
+        <div className='text-3xl px-2 font-bold m-5'>
+          🔥<span className='underline text-blue-400'> Ongoing Events</span>{' '}
+        </div>
       </header>
-      <main className='w-[98vw] overflow-x-hidden flex flex-row justify-evenly px-4' >
+      <main className='w-[98vw] overflow-x-hidden flex flex-row justify-evenly px-4'>
         <Events events={events} />
       </main>
     </div>

@@ -29,7 +29,7 @@ const AddEventForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!title || !description || !category || !Date || !eventImage || !totalTickets || !ticketPrice) {
+    if (!title || !description || !category || !Date || !eventImage || !totalTickets || !ticketPrice || !location) {
       alert('Please fill in all required fields.');
       return;
     }
@@ -41,6 +41,8 @@ const AddEventForm = () => {
       Date: Date,
       location: location,
       eventImage: eventImage,
+      ticketPrice: ticketPrice,
+      totalTickets: totalTickets
     };
 
     try {
@@ -55,6 +57,7 @@ const AddEventForm = () => {
 
       const eventData = await CreateEvent(ipfsData.IpfsHash, totalTickets, ticketPrice);
       console.log("Event created:", eventData);
+      console.log(ipfsData.IpfsHash);
 
       alert('Event created successfully!');
     } catch (error) {
