@@ -222,9 +222,9 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "uint256",
+				"internalType": "int256",
 				"name": "eventId",
-				"type": "uint256"
+				"type": "int256"
 			},
 			{
 				"indexed": false,
@@ -470,6 +470,11 @@
 		"name": "events",
 		"outputs": [
 			{
+				"internalType": "int256",
+				"name": "id",
+				"type": "int256"
+			},
+			{
 				"internalType": "string",
 				"name": "ipfsHash",
 				"type": "string"
@@ -494,6 +499,11 @@
 		"outputs": [
 			{
 				"components": [
+					{
+						"internalType": "int256",
+						"name": "id",
+						"type": "int256"
+					},
 					{
 						"internalType": "string",
 						"name": "ipfsHash",
@@ -556,6 +566,19 @@
 				"internalType": "bool",
 				"name": "",
 				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "lastEventId",
+		"outputs": [
+			{
+				"internalType": "int256",
+				"name": "",
+				"type": "int256"
 			}
 		],
 		"stateMutability": "view",

@@ -66,7 +66,6 @@ const AddEventForm = () => {
     }
   };
 
-  
 
   return (
     <div className="space-y-4 flex flex-col items-center justify-center">

@@ -45,6 +45,7 @@ const App = () => {
         const eventData = await response.json();
 
         const event = {
+          id: parseInt(ipfs[i].id),
           title: eventData.title,
           date: eventData.Date,
           time: eventData.time,
@@ -86,12 +87,11 @@ const App = () => {
       console.error("Error creating event:", error);
     }
   };
-
   // Handler function to toggle checkout modal visibility
   const handleToggleCheckoutModal = () => {
     setShowCheckoutModal(!showCheckoutModal);
   };
-
+console.log(events);
   return (
     <div className='min-h-[70vh] my-10'>
       <Carousel className='w-[50%] border ' items={items} addItem={addItem} />
@@ -107,7 +107,7 @@ const App = () => {
       </header>
       <main className='w-[98vw] overflow-x-hidden flex flex-row justify-evenly items-center p-4 gap-10'>
         <Events events={events} handleToggleCheckoutModal={handleToggleCheckoutModal} />
-        {showCheckoutModal && <CheckoutModal onClose={handleToggleCheckoutModal} />}
+        {showCheckoutModal && <CheckoutModal events={events} onClose={handleToggleCheckoutModal} />}
       </main>
     </div>
   );

@@ -4,7 +4,7 @@ import React from 'react';
 const EventBanner = ({ event, handleToggleCheckoutModal }) => (
   <div className="bg-transparent p-4 md:my-6 my-2  rounded-lg shadow-md border border-white w-full md:w-[45%] lg:w-[30%] flex flex-col justify-center items-start" >
     <div className=''>
-      <img src={event.imageUrl} className="w-[100%] h-[50%] px-4" alt={event.title} />
+      <img src={event.imageUrl} className="w-[50vh] h-[50%] px-4" alt={event.title} />
       <h2 className="text-2xl font-bold my-2 text-center p-2"> {event.title}</h2>
       <p className="mb-2 "><span className='font-semibold'>Description :</span> {event.description} </p>
       <p className="mb-2 font-semibold">Date : {event.date}  </p>
@@ -19,7 +19,6 @@ const EventBanner = ({ event, handleToggleCheckoutModal }) => (
     </div>
   </div>
 );
-  
 
 const Events = ({ events, handleToggleCheckoutModal }) => {
   const getColumnsClass = (count) => {

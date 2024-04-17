@@ -2,41 +2,40 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { BuyTicket } from '@/config/Services';
 
-function CheckoutModal({ onClose }) {
+function CheckoutModal(events,{ onClose }) {
+
+  const buyticket = async(eventId, price, title) => {
+    const result = await BuyTicket(eventId, title, price);
+    if (result) {
+      onClose();
+    }
+  }
+  console.log("check",events.events[0].id);
   return (
     <div className="fixed inset-0  bg-gray-500 bg-opacity-75 overflow-y-auto h-screen flex justify-center items-center">
       <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-md mx-2">
         <h2 className="text-xl font-bold mb-4 text-slate-900">Checkout for </h2>
-        <p className="text-gray-800 font-semibold mb-4">Select Ticket Type and Quantity</p>
-        <div className="flex items-center mb-2">
-          <select className="border border-gray-300 text-gray-900 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 w-full py-2 px-3 shadow-sm">
-            <option value="">Select Ticket Type</option>
-            <option value="general">General Admission</option>
-            <option value="vip">VIP</option>
-          </select>
-          <span className="text-gray-700 ml-4">Quantity: </span>
-          <input type="number" min="1" className="border border-gray-300 text-gray-700 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 px-2 py-1 ml-2" />
-        </div>
-        <input type="date" placeholder="Date " className="w-full border border-gray-300 text-gray-700 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 py-2 px-3 shadow-sm" />
-        <p className="text-gray-700 py-4 ">Enter Billing and Contact Information</p>
-        <form className="space-y-2">
-          <input type="text" placeholder="Full Name" className="w-full border border-gray-300 text-gray-700 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 py-2 px-3 shadow-sm" />
-          <input type="email" placeholder="Email Address" className="w-full border border-gray-300 text-gray-700 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 py-2 px-3 shadow-sm" />
-          <input type="text" placeholder="Phone Number (Optional)" className="w-full border border-gray-300 text-gray-700 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 py-2 px-3 shadow-sm" />
-          <div className="flex items-center mb-2">
-            <label htmlFor="address" className="text-gray-700 mr-2">Billing Address:</label>
-            <textarea id="address" rows="3" className="w-full border border-gray-300 text-gray-700 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 py-2 px-3 shadow-sm"></textarea>
-          </div>
+        <p className="text-gray-800 font-semibold mb-4">Event Name</p>
+        <p className="text-gray-800 font-semibold mb-4">{events.events[0].title}</p>
+        <p className="text-gray-800 font-semibold mb-4">Event Date</p>
+        <p className="text-gray-800 font-semibold mb-4">{events.events[0].date}</p>
+        <p className="text-gray-800 font-semibold mb-4">Event Location</p>
+        <p className="text-gray-800 font-semibold mb-4">{events.events[0].location}</p>
+        <p className="text-gray-800 font-semibold mb-4">Event Price</p>
+        <p className="text-gray-800 font-semibold mb-4">{events.events[0].prize}</p>
+        
           <div className='flex justify-around'>
             <Link href='/Eventlist' className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
               Cancel Checkout
             </Link>
-            <Link href='/Nft_Tickets' onClick={onClose} className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            <button className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+             onClick={buyticket(events.events[0].id, events.events[0].prize, events.events[0].title)}>Buy Ticket</button>
+            <Link href='/Nft_Tickets' className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
               Complete Purchase
             </Link>
           </div>
-        </form>
       </div>
     </div>
   );
