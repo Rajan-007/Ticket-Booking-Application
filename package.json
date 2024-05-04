@@ -18,7 +18,7 @@
     "react-dom": "^18",
     "react-responsive-carousel": "^3.2.23",
     "slick-carousel": "^1.8.1",
-    "viem": "^2.9.9",
+    "viem": "^2.9.31",
     "wagmi": "^2.5.18",
     "web3": "^4.7.0"
   },

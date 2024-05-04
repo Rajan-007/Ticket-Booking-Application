@@ -2,6 +2,7 @@
 import { BuyTicket, getAllEvents } from '@/config/Services';
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const ViewEvents = () => {
     const [ipfs, setIpfs] = useState([]);
@@ -51,42 +52,51 @@ const ViewEvents = () => {
     console.log("Data", ipfs);
     console.log("Ipfs", events);
 
+    const router = useRouter();
+
     const BuyTicketFun = async (eventId, tokenUri, ticketPrice) => {
         try {
-            // const gasLimit = 200000; // Adjust gas limit as needed
-            // const gasPrice = ethers.utils.parseUnits('100', 'wei'); // Adjust gas price as needed
-    
             const result = await BuyTicket(eventId, tokenUri, ticketPrice);
-            console.log("Result", result);
+            const { nftMetadataUri } = result; // Assuming you get back the URI for the NFT metadata
+            console.log("NFT Metadata URI:", nftMetadataUri);
+    
+            // Navigate to new page with metadata URI
+            router.push(`/nft/${encodeURIComponent(nftMetadataUri)}`);
         } catch (error) {
             console.error("Error buying ticket:", error);
             // Handle error gracefully
         }
-    }
+    }    
     
 
     return (
         <div>
             <div>ViewEvents</div>
             <div>The Events are:</div>
-            <div className="grid grid-cols-3">
-            {events.map((event) => (
-                <div key={event.id} className="w-[50%]">
-                    <div>
-                        <img src={event.imageUrl} alt="Event" />
-                    </div>
-                    <div>Title: {event.title}</div>
-                    <div>Date: {event.date}</div>
-                    <div>Time: {event.time}</div>
-                    <div>Location: {event.location}</div>
-                    <div>Description: {event.description}</div>
-                    <div>Prize: {event.prize}</div>
-                    <div>Total Tickets: {event.totalTickets}</div>
-                    <button className=' text-black font-semibold bg-white rounded-lg py-1 px-2' onClick={() => {BuyTicketFun(event.id, event.title, event.prize)}}>
-                        {event.buttonText}
-                    </button>
+            <div className=" flex justify-evenly mx-5 ">
+                <div className='bg-transparent py-5 rounded-lg shadow-md  w-full  grid grid-cols-1 md:grid-cols-3 '>
+                    {events.map((event) => (
+                        <div className='mx-4 text-lg '>
+                            <div key={event.id} className=" bg-transparent p-4 md:my-3 my-4  rounded-lg min-h-[80%] shadow-md border border-white w-full flex flex-col justify-center items-start">
+                                <div className='flex justify-center w-full'>
+                                    <img  className='h-60' src={event.imageUrl} alt="Event" />
+                                </div>
+                                <div className='my-2 font-semibold'>Title: {event.title}</div>
+                                <div className='mb-2 font-semibold'>Date & Time : {event.date}</div>
+                                {/* <div className='mb-2 font-semibold'>Time: {event.time}</div> */}
+                                <div className='mb-2 font-semibold'>Location: {event.location}</div>
+                                <div className='mb-2 font-semibold'>Description: {event.description}</div>
+                                <div className='mb-2 font-semibold'>Prize: {event.prize}</div>
+                                <div className='mb-2 font-semibold'>Total Tickets: {event.totalTickets}</div>
+                                <div className='mb-2 w-full flex justify-center'>
+                                    <button className=' text-white font-semibold bg-blue-600 rounded-lg p-2 px-4' onClick={() => {BuyTicketFun(event.id, event.title, event.prize)}}>
+                                        {event.buttonText}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-            ))}
             </div>
         </div>
     );

@@ -28,7 +28,7 @@ export default function Home() {
               <Link href='/Eventform/' className='bg-blue-500 p-4 px-4 md:px-8 rounded-full border-blue-500 text-xl font-semibold hover:border hover:bg-transparent hover:text-blue-500 m-2 flex md:flex-row justify-center'>
                 Create Event
               </Link>
-              <Link href='Eventlist/' className='bg-blue-500 p-4 px-6 md:px-8 rounded-full border-blue-500 text-xl font-semibold hover:border hover:bg-transparent hover:text-blue-500 m-2 flex md:flex-row justify-center'>
+              <Link href='ViewEvents/' className='bg-blue-500 p-4 px-6 md:px-8 rounded-full border-blue-500 text-xl font-semibold hover:border hover:bg-transparent hover:text-blue-500 m-2 flex md:flex-row justify-center'>
                 Book Event
               </Link>
             </div>

@@ -8,14 +8,14 @@ const EventBanner = ({ event, handleToggleCheckoutModal }) => (
       <h2 className="text-2xl font-bold my-2 text-center p-2"> {event.title}</h2>
       <p className="mb-2 "><span className='font-semibold'>Description :</span> {event.description} </p>
       <p className="mb-2 font-semibold">Date : {event.date}  </p>
-      <p className="mb-2 font-semibold">Place : {event.location}</p>
+      <p className="mb-2 font-semibold">Place : {event.location}</p>  
       <p className="mb-2 font-semibold">Available Tickets : {event.totalTickets}</p>
       <p className="mb-2 text-2xl font-semibold"><span className='font-normal text-xl'>Price :</span> {event.prize}</p>
     </div>
     <div className='w-full mt-2 flex justify-center items-end'>
-      <button onClick={() => handleToggleCheckoutModal(event)} className="bg-blue-500 text-white font-semibold px-4 py-3 rounded hover:bg-blue-600">
-        {event.buttonText}
-      </button>
+    <button className=' text-black font-semibold bg-white rounded-lg py-1 px-2' onClick={() => {BuyTicketFun(event.id, event.title, event.prize)}}>
+                        {event.buttonText}
+    </button>
     </div>
   </div>
 );

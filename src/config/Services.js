@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import Token from "./abi.json";
 
-const contractAddress = "0x8EDcFd0B670bCF5d9931f5f08595BA990348FBe8";
+const contractAddress = "0x95Fa2FD9FE9Ff62eb8cbf01016F54A4d1ff7a69A";
 export const CreateEvent = async (ipfsHash, totalTickets, ticketPrice) => {
   if (!window.ethereum) {
     throw new Error("Ethereum object not found, install MetaMask.");
@@ -40,6 +40,7 @@ export const BuyTicket = async (eventId, tokenUri, ticketPrice) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new ethers.Contract(contractAddress, Token, signer);
+  console.log(ticketPrice)
   try {
       const ticketPriceInWei = ethers.utils.parseEther(ticketPrice);
       const eventData = await contract.purchaseTicket(eventId, tokenUri, { value: ticketPriceInWei});
@@ -49,4 +50,21 @@ export const BuyTicket = async (eventId, tokenUri, ticketPrice) => {
       throw error;
   }
 };
+export const getMyTickets = async () => {
+  if (!window.ethereum) {
+      throw new Error("Ethereum object not found, install MetaMask.");
+  }   
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(contractAddress, Token, signer);
+  try {
+      
+      const eventData = await contract.getMyTickets();
+      return eventData;
+  } catch (error) {
+      console.error("Error buying ticket:", error);
+      throw error;
+  }
+};
+
 
