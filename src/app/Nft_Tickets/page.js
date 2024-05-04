@@ -10,12 +10,18 @@ import Link from 'next/link';
 
 
 const EventBanner = ({ event }) => (
-  <div className="bg-transparent p-4 md:p-10 md:m-5 rounded-lg  shadow-md border border-white  bg-no-repeat bg-cover " style={{backgroundImage: event.imageUrl}}>
-    <img src={event.imageUrl} alt="Event Image" width={500} height={300} className="rounded-lg" />
-    <h2 className="text-2xl font-bold mb-2">{event.title}</h2>
-    <p className="mb-4 font-semibold">Now dates: {event.date} | {event.time}</p>
-    <p className="mb-4 font-semibold">{event.location}</p>
-    <p className="mb-4 font-semibold">No.of Tickets{event.totalTickets}</p>
+  <div className="flex justify-around p-4 md:p-10 md:m-5 rounded-lg  shadow-md border border-white bg-cover bg-no-repeat " style={{ backgroundImage: `url(${event.imageUrl})`}}>
+    <div className='flex justify-center'>
+      <img src={event.imageUrl} alt="Event Image" width={300} height={200} className="rounded-lg" />
+    </div>
+    <div className='flex flex-col justify-center'>
+      <h2 className="text-2xl font-bold mb-2">{event.title}</h2>
+      <p className="mb-4 font-semibold">Event description: {event.description}</p>
+      <p className="mb-4 font-semibold">Event date: {event.date} | {event.time}</p>
+      <p className="mb-4 font-semibold">Event location: {event.location}</p>
+      <p className="mb-4 font-semibold">Ticket.No: {event.totalTickets}</p>
+    </div>
+    
   </div>
 );
 

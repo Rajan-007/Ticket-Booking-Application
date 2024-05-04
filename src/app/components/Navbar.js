@@ -33,11 +33,12 @@ export default function Navbar() {
               <img src='/logo1.png' className='flex items-center h-24 rounded-full'></img>
               <Link href='/' className='text-4xl font-bold px-1 flex flex-wrap md:flex-nowrap max-w-[30vw] text-blue-400'>Secure seats</Link>
             </div>
-            <div className='flex items-center md:px-8'>
+            <div className='flex items-center md:px-10'>
             <nav>
               <ul className="flex space-x-4 mx-2">
-                <li><Link href='/Eventform' className="hover:underline">List your event</Link></li>
-                <li><Link href='/Eventlist' className="hover:underline">Book Ticket</Link></li>
+                <li><Link href='/Eventform' className="hover:underline text-sm md:text-base ">List your event</Link></li>
+                <li><Link href='/ViewEvents' className="hover:underline text-sm md:text-base ">Book Ticket</Link></li>
+                <li><Link href='/Nft_Tickets' className="hover:underline text-sm md:text-base ">Your Tickets</Link></li>
               </ul>
             </nav>
               <ConnectButton />

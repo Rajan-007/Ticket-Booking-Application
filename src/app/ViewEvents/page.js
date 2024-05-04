@@ -61,7 +61,7 @@ const ViewEvents = () => {
             console.log("NFT Metadata URI:", nftMetadataUri);
     
             // Navigate to new page with metadata URI
-            router.push(`/nft/${encodeURIComponent(nftMetadataUri)}`);
+            router.push(`/Nft_Tickets`);
         } catch (error) {
             console.error("Error buying ticket:", error);
             // Handle error gracefully
@@ -71,8 +71,9 @@ const ViewEvents = () => {
 
     return (
         <div>
-            <div>ViewEvents</div>
-            <div>The Events are:</div>
+            <div className='text-4xl px-2 font-bold m-5 mt-10'>
+                🔥<span className='underline text-blue-00'> Upcoming Events</span>{' '}
+            </div>
             <div className=" flex justify-evenly mx-5 ">
                 <div className='bg-transparent py-5 rounded-lg shadow-md  w-full  grid grid-cols-1 md:grid-cols-3 '>
                     {events.map((event) => (
