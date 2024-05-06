@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 const ViewEvents = () => {
     const [ipfs, setIpfs] = useState([]);
     const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(true); // Initial loading state
+
 
     useEffect(() => {
         const fetchDataFromIPFS = async () => {
@@ -27,7 +29,7 @@ const ViewEvents = () => {
                     time: eventData.time,
                     location: eventData.location,
                     description: eventData.description,
-                    prize: eventData.ticketPrice,
+                    price: eventData.ticketPrice,
                     totalTickets : eventData.totalTickets,
                     imageUrl: eventData.eventImage,
                     buttonText:" Buy Tickets"
@@ -36,6 +38,8 @@ const ViewEvents = () => {
             }
 
             setEvents(fetchedEvents);
+            setLoading(false); // Set loading to false once data is fetched
+
         };
 
         fetchDataFromIPFS();
@@ -67,8 +71,14 @@ const ViewEvents = () => {
             // Handle error gracefully
         }
     }    
-    
-
+    if (loading) {
+        return (
+         <div className='w-full min-h-screen flex flex-col justify-center items-center'>   
+            <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-24 w-24"></div> 
+            <div className="text-lg my-2"> Loading...</div> 
+        </div>
+        )
+    }
     return (
         <div>
             <div className='text-4xl px-2 font-bold m-5 mt-10'>
@@ -87,10 +97,10 @@ const ViewEvents = () => {
                                 {/* <div className='mb-2 font-semibold'>Time: {event.time}</div> */}
                                 <div className='mb-2 font-semibold'>Location: {event.location}</div>
                                 <div className='mb-2 font-semibold'>Description: {event.description}</div>
-                                <div className='mb-2 font-semibold'>Prize: {event.prize}</div>
+                                <div className='mb-2 font-semibold'>Price: {event.price}</div>
                                 <div className='mb-2 font-semibold'>Total Tickets: {event.totalTickets}</div>
                                 <div className='mb-2 w-full flex justify-center'>
-                                    <button className=' text-white font-semibold bg-blue-600 rounded-lg p-2 px-4' onClick={() => {BuyTicketFun(event.id, event.title, event.prize)}}>
+                                    <button className=' text-white font-semibold bg-blue-600 rounded-lg p-2 px-4' onClick={() => {BuyTicketFun(event.id, event.title, event.price, event.totalTickets)}}>
                                         {event.buttonText}
                                     </button>
                                 </div>

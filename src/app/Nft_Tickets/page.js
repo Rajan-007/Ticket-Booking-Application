@@ -15,7 +15,7 @@ const EventBanner = ({ event }) => (
       <img src={event.imageUrl} alt="Event Image" width={300} height={200} className="rounded-lg" />
     </div>
     <div className='flex flex-col justify-center'>
-      <h2 className="text-2xl font-bold mb-2">{event.title}</h2>
+      <h2 className="text-2xl font-bold mb-2">Ticket for {event.title}</h2>
       <p className="mb-4 font-semibold">Event description: {event.description}</p>
       <p className="mb-4 font-semibold">Event date: {event.date} | {event.time}</p>
       <p className="mb-4 font-semibold">Event location: {event.location}</p>
@@ -27,6 +27,7 @@ const EventBanner = ({ event }) => (
 
 export default function Eventlist() {
   const [ipfs, setIpfs] = useState([]);
+  const [loading, setLoading] = useState(true); // Initial loading state
 
     const [events, setEvents] = useState([]);
 
@@ -59,6 +60,8 @@ export default function Eventlist() {
             }
 
             setEvents(fetchedEvents);
+            setLoading(false); // Set loading to false once data is fetched
+
         };
 
         fetchDataFromIPFS();
@@ -83,6 +86,14 @@ export default function Eventlist() {
     fetchTickets(); // Invoke the async function to fetch tickets when the component mounts
   }, []); 
 
+  if (loading) {
+    return (
+     <div className='w-full min-h-screen flex flex-col justify-center items-center'>   
+        <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-24 w-24"></div> 
+        <div className="text-lg my-2"> Loading...</div> 
+    </div>
+    )
+}
 
 
   return (

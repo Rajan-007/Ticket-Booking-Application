@@ -2,6 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 
+
 // Define a functional component named Home
 export default function Home() {
   // Return JSX representing the component's UI

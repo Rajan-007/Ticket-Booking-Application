@@ -15,6 +15,8 @@ const AddEventForm = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [totalTickets, setTotalTickets] = useState(0);
   const [ipfsHash, setIpfsHash] = useState("");
+  const [loading, setLoading] = useState(false);
+
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -33,6 +35,8 @@ const AddEventForm = () => {
       alert('Please fill in all required fields.');
       return;
     }
+
+    setLoading(true);
     
     const formData = {
       title: title,
@@ -60,9 +64,24 @@ const AddEventForm = () => {
       console.log(ipfsData.IpfsHash);
 
       alert('Event created successfully!');
+
+      setTitle("");
+      setDescription("");
+      setCategory("");
+      setDate("");
+      setTicketPrice("");
+      setVirtualLink("");
+      setLocation("");
+      setEventImage("");
+      setShortDescription("");
+      setIsVisible(true);
+      setTotalTickets(0);
+
     } catch (error) {
       console.error('Error creating event:', error);
       alert('Error creating event. Please try again.');
+    } finally {
+      setLoading(false); // End loading (whether success or failure)
     }
   };
 
@@ -98,6 +117,7 @@ const AddEventForm = () => {
           <textarea
             name="description"
             id="description"
+            placeholder="About the event more than 10 words"
             className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 rounded-md w-full py-2 px-3 text-lg text-black"
             value={description}
             onChange={(e)=>{setDescription(e.target.value)}}
@@ -142,7 +162,7 @@ const AddEventForm = () => {
             htmlFor="totalTickets"
             className="block text-sm font-medium mb-2"
           >
-            Total Tickets
+            Available Tickets
           </label>
           <input
             type="number"
@@ -244,11 +264,12 @@ const AddEventForm = () => {
           />
         </div>
         <div className="flex justify-center">
-          <button
+          <button type="submit"
             onClick={handleSubmit}
             className="inline-flex items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white font-bold rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            disabled={loading}
           >
-            Create Event
+            {loading ? 'Creating Event...' : 'Create Event'}
           </button>
         </div>
       </div>
