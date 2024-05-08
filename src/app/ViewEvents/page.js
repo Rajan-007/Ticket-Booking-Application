@@ -85,19 +85,21 @@ const ViewEvents = () => {
     
         return (
             <div className='mx-4 text-lg'>
-                <div className="bg-transparent p-4 md:my-3 my-4 rounded-lg shadow-md border border-white w-full flex flex-col justify-center items-start">
-                    <div className='flex justify-center w-full'>
-                        <img className='h-60' src={imageUrl} alt="Event" />
-                    </div>
-                    <div className='my-2 font-semibold'>Title: {title}</div>
-                    <div className='mb-2 font-semibold'>Date & Time : {date}</div>
-                    <div className='mb-2 font-semibold'>Location: {location}</div>
-                    <div className='mb-2 font-semibold'>Description: {description}</div>
-                    <div className='mb-2 font-semibold'>Price: {price}</div>
-                    <div className='mb-2 font-semibold'>Total Tickets: {ipfsTicketCount}</div>
-                    <div className='mb-2 w-full flex justify-center'>
+                <div className="bg-transparent h-[100%] p-4 md:my-3 my-4 rounded-lg shadow-md border border-white w-full flex flex-col justify-center items-start">
+                   <div className='flex flex-col w-full flex-1'>
+                        <div className='flex justify-center w-full'>
+                            <img className='h-60' src={imageUrl} alt="Event" />
+                        </div>
+                        <div className='my-2 font-semibold'>Title: {title}</div>
+                        <div className='mb-2 font-semibold'>Description: {description}</div>
+                        <div className='mb-2 font-semibold'>Date & Time : {date}</div>
+                        <div className='mb-2 font-semibold'>Location: {location}</div>
+                        <div className='mb-2 font-semibold'>Price: {price}</div>
+                        <div className='mb-2 font-semibold'>Total Tickets: {ipfsTicketCount}</div>
+                   </div>
+                    <div className='mb-2 w-full p-5 flex items-center justify-center'>
                         <button
-                            className='text-white font-semibold bg-blue-600 rounded-lg p-2 px-4'
+                            className='flex justify-center items-end text-white font-semibold bg-blue-600 rounded-lg p-2 px-4'
                             onClick={() => buyTicketFunction(id, title, price, ipfsTicketCount)}
                         >
                             {buttonText}
