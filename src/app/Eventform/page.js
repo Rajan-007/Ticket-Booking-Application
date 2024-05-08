@@ -179,7 +179,7 @@ const AddEventForm = () => {
             htmlFor="ticketprice"
             className="block text-sm font-medium mb-2"
           >
-            Ticket price (usd)
+            Ticket price (Matic)
           </label>
           <input
             type="number"

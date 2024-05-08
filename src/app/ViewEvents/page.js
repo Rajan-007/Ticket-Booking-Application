@@ -21,7 +21,7 @@ const ViewEvents = () => {
             for (let i = 0; i < ipfs.length; i++) {
                 const response = await fetch(`https://ipfs.io/ipfs/${ipfs[i].ipfsHash}`);
                 const eventData = await response.json();
-
+                console.log("jijij",eventData);
                 const event = {
                     id: parseInt(ipfs[i].id),
                     title: eventData.title,
@@ -49,7 +49,7 @@ const ViewEvents = () => {
         const getEvents = async () => {
             const result = await getAllEvents();
             setIpfs(result);
-        };
+        }
         getEvents();
     }, []);
 
@@ -79,6 +79,35 @@ const ViewEvents = () => {
         </div>
         )
     }
+
+    const EventComponent = ({ event, ipfsTicketCount, buyTicketFunction }) => {
+        const { id, imageUrl, title, date, location, description, price, buttonText } = event;
+    
+        return (
+            <div className='mx-4 text-lg'>
+                <div className="bg-transparent p-4 md:my-3 my-4 rounded-lg shadow-md border border-white w-full flex flex-col justify-center items-start">
+                    <div className='flex justify-center w-full'>
+                        <img className='h-60' src={imageUrl} alt="Event" />
+                    </div>
+                    <div className='my-2 font-semibold'>Title: {title}</div>
+                    <div className='mb-2 font-semibold'>Date & Time : {date}</div>
+                    <div className='mb-2 font-semibold'>Location: {location}</div>
+                    <div className='mb-2 font-semibold'>Description: {description}</div>
+                    <div className='mb-2 font-semibold'>Price: {price}</div>
+                    <div className='mb-2 font-semibold'>Total Tickets: {ipfsTicketCount}</div>
+                    <div className='mb-2 w-full flex justify-center'>
+                        <button
+                            className='text-white font-semibold bg-blue-600 rounded-lg p-2 px-4'
+                            onClick={() => buyTicketFunction(id, title, price, ipfsTicketCount)}
+                        >
+                            {buttonText}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+    
     return (
         <div>
             <div className='text-4xl px-2 font-bold m-5 mt-10'>
@@ -86,27 +115,14 @@ const ViewEvents = () => {
             </div>
             <div className=" flex justify-evenly mx-5 ">
                 <div className='bg-transparent py-5 rounded-lg shadow-md  w-full  grid grid-cols-1 md:grid-cols-3 '>
-                    {events.map((event) => (
-                        <div className='mx-4 text-lg '>
-                            <div key={event.id} className=" bg-transparent p-4 md:my-3 my-4  rounded-lg min-h-[80%] shadow-md border border-white w-full flex flex-col justify-center items-start">
-                                <div className='flex justify-center w-full'>
-                                    <img  className='h-60' src={event.imageUrl} alt="Event" />
-                                </div>
-                                <div className='my-2 font-semibold'>Title: {event.title}</div>
-                                <div className='mb-2 font-semibold'>Date & Time : {event.date}</div>
-                                {/* <div className='mb-2 font-semibold'>Time: {event.time}</div> */}
-                                <div className='mb-2 font-semibold'>Location: {event.location}</div>
-                                <div className='mb-2 font-semibold'>Description: {event.description}</div>
-                                <div className='mb-2 font-semibold'>Price: {event.price}</div>
-                                <div className='mb-2 font-semibold'>Total Tickets: {event.totalTickets}</div>
-                                <div className='mb-2 w-full flex justify-center'>
-                                    <button className=' text-white font-semibold bg-blue-600 rounded-lg p-2 px-4' onClick={() => {BuyTicketFun(event.id, event.title, event.price, event.totalTickets)}}>
-                                        {event.buttonText}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+                {events.map((event, index) => (
+                <EventComponent
+                    key={event.id}
+                    event={event}
+                    ipfsTicketCount={ipfs[index]?.ticketCount?.toNumber() || 0} // Default to 0 if no ticketCount is available
+                    buyTicketFunction={BuyTicketFun}
+                />
+            ))}
                 </div>
             </div>
         </div>

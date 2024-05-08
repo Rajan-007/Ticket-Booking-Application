@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import Token from "./abi.json";
 
-const contractAddress = "0x95Fa2FD9FE9Ff62eb8cbf01016F54A4d1ff7a69A";
+const contractAddress = "0x28f57487150353be185A5202b6B5C540140842df";
 export const CreateEvent = async (ipfsHash, totalTickets, ticketPrice) => {
   if (!window.ethereum) {
     throw new Error("Ethereum object not found, install MetaMask.");
