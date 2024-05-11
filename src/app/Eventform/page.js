@@ -193,7 +193,7 @@ const AddEventForm = () => {
         </div>
         <div className="mb-4">
           <label htmlFor="location" className="block text-sm font-medium mb-2">
-            Location (Optional)
+            Location *
           </label>
           <input
             type="text"

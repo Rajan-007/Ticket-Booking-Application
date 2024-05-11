@@ -14,7 +14,7 @@ const EventBanner = ({ event, handleToggleCheckoutModal }) => (
     </div>
     <div className='w-full mt-2 flex justify-center items-end'>
     <button className=' text-black font-semibold bg-white rounded-lg py-1 px-2' onClick={() => {BuyTicketFun(event.id, event.title, event.prize)}}>
-                        {event.buttonText}
+      {event.buttonText}
     </button>
     </div>
   </div>

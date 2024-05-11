@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 
 const EventBanner = ({ event }) => (
-  <div className="flex justify-around p-4 md:p-10 md:m-5 rounded-lg text-black shadow-md border border-white bg-cover bg-no-repeat relative " style={{ backgroundImage: `url(${event.imageUrl})`}}>
+  <div className="flex justify-around p-4 md:p-10 md:m-5 rounded-lg text-purple-00 shadow-md border border-white bg-cover bg-no-repeat relative " style={{ backgroundImage: `url(${event.imageUrl})`}}>
     <div className='flex justify-center'>
       <img src={event.imageUrl} alt="Event Image" width={300} height={200} className="rounded-lg" />
     </div>
