@@ -15,11 +15,17 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <head>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16*16" />
       </head>
-      <body className= {inter.className}> <Navbar />{children} <Footer /></body>
+      <body className={inter.className}>
+        <Navbar />
+        <main className="pt-20">
+          {children}
+        </main>
+        <Footer />
+      </body>
     </html>
   )
 }

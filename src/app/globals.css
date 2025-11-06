@@ -8,19 +8,20 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-
-
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
-    --text-gradient {
-      background: linear-gradient(45deg, #4f93ce, #00bcd4);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
   }
+}
+
+* {
+  @apply transition-colors duration-200;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -31,6 +32,124 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  @apply antialiased;
+}
 
-  
+/* Custom Animations */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.5s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.3s ease-out;
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-500 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-blue-600;
+}
+
+/* Glassmorphism utility */
+.glass {
+  @apply bg-white/10 backdrop-blur-lg border border-white/20;
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 bg-clip-text text-transparent;
+}
+
+/* Smooth hover transitions */
+.hover-lift {
+  @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl;
+}
+
+.hover-glow {
+  @apply transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50;
 }
